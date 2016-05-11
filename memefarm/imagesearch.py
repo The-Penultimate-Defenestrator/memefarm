@@ -1,9 +1,9 @@
 import json
 import os
 import random
-
 import requests
 
+from io import BytesIO
 from PIL import Image
 
 # GLOBALS
@@ -18,7 +18,7 @@ with open(os.path.join(os.path.dirname(__file__), "API_KEY.txt"), "r") as f:
 
 # API
 
-def get_image(search):
+def getImageUrl(search):
     """ Get a ramdom image URL from the first 10 google images results for a
     given search term """
     r = requests.get(endpoint, params={
@@ -33,5 +33,14 @@ def get_image(search):
     result = random.choice(results)  # Pick a random one
     return result["link"]            # Return its link
 
+
+def getImage(search):
+    """ Get a PIL image for a given search term """
+    url = getImageUrl(search)  # Get an image URL
+    req = requests.get(url)    # Download image
+    b = BytesIO(req.content)   # Load into file-like object
+    return Image.open(b)       # Open and return
+
+
 if __name__ == "__main__":
-    print(get_image("cow"))
+    getImage("cow").show()
