@@ -19,14 +19,15 @@ with open(os.path.join(os.path.dirname(__file__), "API_KEY.txt"), "r") as f:
 # API
 
 def get_image(search):
-    """ Get a ramdom image URL from the first 10 google images results for a given search term """
+    """ Get a ramdom image URL from the first 10 google images results for a
+    given search term """
     r = requests.get(endpoint, params={
         "key": API_KEY,
         "cx": searchid,
         "searchType": "image",
         "q": search,
     })
-    
+
     data = json.loads(r.text)        # Load JSON responses
     results = data["items"]          # Find the images returned
     result = random.choice(results)  # Pick a random one
