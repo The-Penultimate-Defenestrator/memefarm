@@ -8,9 +8,13 @@ import random
 
 import wordgen
 
+
+# Load words
 commonwords = wordgen.getWords()
 
+
 class memefarm(object):
+    """ A 'meme farm' capabale of generating memes. """
     def __init__(self, words=commonwords):
         self.words = words
 
@@ -18,9 +22,11 @@ class memefarm(object):
         """ Get a random word from the words with which the """
         return random.choice(self.words)
 
-    def getSentence(self, length=(3,6)):
-        """ Create a random sentence with a given range for numbers of words"""
-        return ' '.join([self.getRandomWord() for _ in range(random.randint(3,6))])
+    def getSentence(self, length=(3, 6)):
+        """ Create a random sentence, given an acceptable range for numbers of
+        number of words"""
+        wordcount = random.randint(*length)
+        return ' '.join([self.getRandomWord() for _ in range(wordcount)])
 
 if __name__ == "__main__":
     mf = memefarm()
