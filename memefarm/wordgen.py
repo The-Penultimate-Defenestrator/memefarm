@@ -22,6 +22,7 @@ def getWords():
         with open(wordspath, "wb") as f:
             f.write("\n".join(words).encode("utf-8"))
         return words
+
     # Words list is saved, read and return.
     with open(wordspath, "r") as f:
         return [l.strip() for l in f.readlines()]
