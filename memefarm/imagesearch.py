@@ -39,8 +39,14 @@ def getImage(search):
     url = getImageUrl(search)  # Get an image URL
     req = requests.get(url)    # Download image
     b = BytesIO(req.content)   # Load into file-like object
-    return Image.open(b)       # Open and return
+    out = Image.open(b)        # Open and return
+    out.searchterm = search    # Store the search term used
+
+    return out
 
 
 if __name__ == "__main__":
-    getImage("cow").show()
+    # Tests
+    i = getImage("cow")  # Search for an image
+    i.show()             # Show it
+    print(i.searchterm)  # Test custom attribute
