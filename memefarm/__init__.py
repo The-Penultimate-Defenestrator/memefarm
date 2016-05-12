@@ -5,7 +5,7 @@ combining random images and words.
 
 
 # Dependencies
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 import random
 
 # Internal modules
@@ -13,8 +13,9 @@ import imagesearch
 import wordgen
 
 
-# Load words
-commonwords = wordgen.getWords()
+# GLOBALS
+commonwords = wordgen.getWords()  # Common english words
+memefont = ImageFont.truetype("Impact")
 
 
 class memefarm(object):
