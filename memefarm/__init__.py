@@ -18,6 +18,8 @@ commonwords = wordgen.getWords()  # Common english words
 memefont = ImageFont.truetype("Impact")
 
 
+# PUBLIC API
+
 class memefarm(object):
     """ A 'meme farm' capabale of generating memes. """
     def __init__(self, words=commonwords):

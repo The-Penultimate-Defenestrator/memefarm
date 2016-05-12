@@ -1,4 +1,6 @@
-""" PIL doesn't have a built-in method for drawing text with a border """
+""" PIL doesn't have a built-in method for drawing text with a border. This
+provides that. The defaults are set to full meme power, white with black
+outline. """
 from PIL import ImageFont
 
 
@@ -20,6 +22,7 @@ def drawTextWithBorder(draw, text, coords,
         draw.text(c, text, font=font, fill=strokecolor)
 
     draw.text(coords, text, font=font, fill=color)
+
 
 if __name__ == "__main__":
     from PIL import Image, ImageDraw

@@ -24,7 +24,9 @@ def getImageUrl(search):
     r = requests.get(endpoint, params={
         "key": API_KEY,
         "cx": searchid,
+
         "searchType": "image",
+
         "q": search,
     })
 
