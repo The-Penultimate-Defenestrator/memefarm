@@ -22,6 +22,7 @@ memefont = ImageFont.truetype("Impact")
 
 class memefarm(object):
     """ A 'meme farm' capabale of generating memes. """
+
     def __init__(self, words=commonwords):
         self.words = words
 
@@ -39,11 +40,3 @@ class memefarm(object):
         """ Get a random image by searching for a random word """
         search = self.word()
         return imagesearch.getImage(search)
-
-if __name__ == "__main__":
-    # Tests
-    mf = memefarm()      # Make a memefarm
-    print(mf.phrase())   # Print a random sentence
-    i = mf.image()       # Find a random image
-    print(i.searchterm)  # Show the search term used
-    i.show()             # Show the image
