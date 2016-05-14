@@ -10,7 +10,7 @@ import random
 
 # Internal modules
 import imagesearch
-import pilutil
+from pilutil import drawTextWithBorder, findFontSize, labelImage
 import wordgen
 
 
@@ -42,17 +42,21 @@ class memefarm(object):
         search = self.word()
         out = imagesearch.getImage(search)
         if debug:
-            pilutil.labelImage(out, out.searchterm)
+            labelImage(out, out.searchterm)
         return out
 
-    def meme(self):
+    def meme(self, debug=False):
         # Find an image
-        i = self.image(True)
+        i = self.image(debug)
         w, h = i.size
         d = ImageDraw.Draw(i)
         # Top text
         t1 = self.phrase((3, 4)).upper()
-        pilutil.drawTextWithBorder(d, t1, (w / 10, 0),
-                                   fontsize=pilutil.findFontSize(t1, w)
-                                   )
+        drawTextWithBorder(d, t1, (w / 10, 0), fontsize=findFontSize(t1, w))
+        # Bottom text (50% chance)
+        if random.randint(0, 1):
+            t2 = self.phrase((4, 5)).upper()
+            size = findFontSize(t2, w)
+            fontheight = memefont.getsize(t2)[1] + size / 2
+            drawTextWithBorder(d, t2, (w / 10, h - fontheight), fontsize=size)
         return i
