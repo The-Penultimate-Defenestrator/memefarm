@@ -35,7 +35,7 @@ def labelImage(im, text):
     coords = im.size[0] - textsize[0] - 5, im.size[1] - textsize[1] - 5
     # Check color of image where the text would go
     textarea = im.crop(coords + im.size)
-    textareabrightness = ImageStat.Stat(im.convert("L")).mean[0]
+    textareabrightness = ImageStat.Stat(textarea.convert("L")).mean[0]
     color = (0, 0, 0) if textareabrightness > 128 else (255, 255, 255)
     # Draw text
     d.text(coords, text, fill=color)
