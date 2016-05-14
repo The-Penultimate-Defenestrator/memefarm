@@ -51,7 +51,7 @@ class memefarm(object):
         w, h = i.size
         d = ImageDraw.Draw(i)
         # Top text
-        t1 = self.phrase((3, 4))
+        t1 = self.phrase((3, 4)).upper()
         pilutil.drawTextWithBorder(d, t1, (w / 10, 0),
                                    fontsize=pilutil.findFontSize(t1, w)
                                    )
