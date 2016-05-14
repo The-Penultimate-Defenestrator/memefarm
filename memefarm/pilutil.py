@@ -32,9 +32,27 @@ def proportionalResize(im, width):
 
     return out
 
+
+def findFontSize(text, width, font="Impact", margin=10):
+    """ Find the largest font size that will fit `text` onto `im`, given a
+    margin (in percent) that must be left around an image border. """
+    w = int(width * (1 - margin / 100.0 * 2))  # Width accounting for margin
+    wAt40 = ImageFont.truetype(font, 40).getsize(text)[0]  # find size at 40px
+    return 40 * w / wAt40  # Use a proportion to adjust that for image size
+
 if __name__ == "__main__":
     from PIL import Image, ImageDraw
+
+    # Blank test image
     i = Image.new("RGB", (1024, 768), "#abcdef")
     d = ImageDraw.Draw(i)
-    drawTextWithBorder(d, "SUCH FONT", (10, 10))
+    # Calculate font size
+    text = "OMG SUCH FONT"
+    fontsize = findFontSize(text, 1024)
+    # Render font onto canvas (102px is 10% margin)
+    drawTextWithBorder(d, text, (102, 102), fontsize=fontsize)
+
+    # Test proportional resizing to a larger width
+    proportionalResize(i, 2000).show()
+    # Test proportional resizing to a smaller widthAt40
     proportionalResize(i, 400).show()
