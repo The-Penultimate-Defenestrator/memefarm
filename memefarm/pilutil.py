@@ -1,15 +1,19 @@
 """ Helpers for making some things in PIL easier """
 from PIL import ImageDraw, ImageFont, ImageStat
+from math import ceil
 
 
 def drawTextWithBorder(draw, text, coords,
-                       fontname="Impact", fontsize=80, strokewidth=3,
+                       fontname="Impact", fontsize=80,
                        color="#fff", strokecolor="#000"):
     """ Draw text with a border. Although PIL doesn't support this, it can be
     faked by drawing the text in the border color, with offsets, and then
     drawing the text in the center on top.
 
     See http://stackoverflow.com/a/8050556/4414003 """
+
+    # 3 looks good for 80px font. This allows for adjusting proportionally.
+    strokewidth = ceil(3 * fontsize / 80.0)  # Use ceiling to prevent 0
 
     font = ImageFont.truetype(fontname, fontsize)
     x, y = coords
@@ -32,7 +36,7 @@ def labelImage(im, text):
     # Check color of image where the text would go
     textarea = im.crop(coords + im.size)
     textareabrightness = ImageStat.Stat(im.convert("L")).mean[0]
-    color = "#000" if textareabrightness > 128 else "#fff"
+    color = (0, 0, 0) if textareabrightness > 128 else (255, 255, 255)
     # Draw text
     d.text(coords, text, fill=color)
 
