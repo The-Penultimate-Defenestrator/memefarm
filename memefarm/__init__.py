@@ -10,6 +10,7 @@ import random
 
 # Internal modules
 import imagesearch
+import pilutil
 import wordgen
 
 
@@ -36,7 +37,10 @@ class memefarm(object):
         wordcount = random.randint(*length)
         return ' '.join([self.word() for _ in range(wordcount)])
 
-    def image(self):
+    def image(self, debug=False):
         """ Get a random image by searching for a random word """
         search = self.word()
-        return imagesearch.getImage(search)
+        out = imagesearch.getImage(search)
+        if debug:
+            pilutil.labelImage(out, out.searchterm)
+        return out

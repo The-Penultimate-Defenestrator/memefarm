@@ -1,5 +1,5 @@
 """ Helpers for making some things in PIL easier """
-from PIL import ImageFont
+from PIL import ImageDraw, ImageFont, ImageStat
 
 
 def drawTextWithBorder(draw, text, coords,
@@ -23,6 +23,20 @@ def drawTextWithBorder(draw, text, coords,
     draw.text(coords, text, font=font, fill=color)
 
 
+def labelImage(im, text):
+    """ Label an image with a string in the bottom left, using a text color
+    that will ensure appropriate contrast. """
+    d = ImageDraw.Draw(im)
+    textsize = ImageFont.load_default().getsize(text)
+    coords = im.size[0] - textsize[0] - 5, im.size[1] - textsize[1] - 5
+    # Check color of image where the text would go
+    textarea = im.crop(coords + im.size)
+    textareabrightness = ImageStat.Stat(im.convert("L")).mean[0]
+    color = "#000" if textareabrightness > 128 else "#fff"
+    # Draw text
+    d.text(coords, text, fill=color)
+
+
 def proportionalResize(im, width):
     """ Resize an image to be a specified width while keeping aspect ratio """
     w, h = im.size
@@ -39,6 +53,7 @@ def findFontSize(text, width, font="Impact", margin=10):
     w = int(width * (1 - margin / 100.0 * 2))  # Width accounting for margin
     wAt40 = ImageFont.truetype(font, 40).getsize(text)[0]  # find size at 40px
     return 40 * w / wAt40  # Use a proportion to adjust that for image size
+
 
 if __name__ == "__main__":
     from PIL import Image, ImageDraw
