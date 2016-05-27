@@ -57,6 +57,24 @@ class memefarm(object):
         if random.randint(0, 1):
             t2 = self.phrase((4, 5)).upper()
             size = findFontSize(t2, w)
-            fontheight = memefont.getsize(t2)[1] + size / 2  # Add some margin
+            fontheight = memefont.getsize(t2)[1] + h / 8  # Add some margin
             drawTextWithBorder(d, t2, (w / 10, h - fontheight), fontsize=size)
         return i
+
+if __name__ == "__main__":
+    import os
+    if not os.path.exists("memes"):
+        os.mkdir("memes")
+
+    mf = memefarm()
+    for x in range(35, 100):
+        print(x)
+
+        def save_meme():
+            try:
+                mf.meme().convert("RGBA").save("memes/{}.png".format(x))
+            except ValueError:
+                print("Drawing text failed. Retrying...")
+                save_meme()
+
+        save_meme()
