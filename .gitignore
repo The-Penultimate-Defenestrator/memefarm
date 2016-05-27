@@ -1,2 +1,3 @@
 *.pyc
 memefarm/API_KEY.txt
+.DS_Store
