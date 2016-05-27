@@ -5,7 +5,7 @@ combining random images and words.
 
 
 # Dependencies
-from PIL import Image, ImageDraw, ImageFont
+from PIL import ImageDraw, ImageFont
 import random
 
 # Internal modules
@@ -57,6 +57,6 @@ class memefarm(object):
         if random.randint(0, 1):
             t2 = self.phrase((4, 5)).upper()
             size = findFontSize(t2, w)
-            fontheight = memefont.getsize(t2)[1] + size / 2
+            fontheight = memefont.getsize(t2)[1] + size / 2  # Add some margin
             drawTextWithBorder(d, t2, (w / 10, h - fontheight), fontsize=size)
         return i
