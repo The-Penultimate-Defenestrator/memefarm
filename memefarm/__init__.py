@@ -67,7 +67,7 @@ if __name__ == "__main__":
         os.mkdir("memes")
 
     mf = memefarm()
-    for x in range(35, 100):
+    for x in range(100):
         print(x)
 
         def save_meme():
